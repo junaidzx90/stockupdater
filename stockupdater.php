@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 /**
  * The plugin bootstrap file
  *
@@ -42,8 +42,7 @@ define( 'STOCKUPDATER_VERSION', '1.0.0' );
  * This action is documented in includes/class-stockupdater-activator.php
  */
 function activate_stockupdater() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-stockupdater-activator.php';
-	Stockupdater_Activator::activate();
+	
 }
 
 /**
@@ -51,17 +50,16 @@ function activate_stockupdater() {
  * This action is documented in includes/class-stockupdater-deactivator.php
  */
 function deactivate_stockupdater() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-stockupdater-deactivator.php';
-	Stockupdater_Deactivator::deactivate();
+	
 }
 
 register_activation_hook( __FILE__, 'activate_stockupdater' );
 register_deactivation_hook( __FILE__, 'deactivate_stockupdater' );
 
 /**
- * The core plugin class that is used to define internationalization,
- * admin-specific hooks, and public-facing site hooks.
+ * XMLSimpler class for handling large data
  */
+require plugin_dir_path( __FILE__ ) . 'includes/class-xmlsimpler.php';
 require plugin_dir_path( __FILE__ ) . 'includes/class-stockupdater.php';
 
 /**
@@ -73,10 +71,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-stockupdater.php';
  *
  * @since    1.0.0
  */
+add_action( 'plugins_loaded', 'run_stockupdater' );
 function run_stockupdater() {
 
-	$plugin = new Stockupdater();
+	$plugin = new StockUpdater();
 	$plugin->run();
 
 }
-run_stockupdater();
