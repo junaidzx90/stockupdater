@@ -73,8 +73,5 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-stockupdater.php';
  */
 add_action( 'plugins_loaded', 'run_stockupdater' );
 function run_stockupdater() {
-
 	$plugin = new StockUpdater();
-	$plugin->run();
-
 }
