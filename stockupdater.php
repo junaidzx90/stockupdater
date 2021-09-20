@@ -50,7 +50,7 @@ function activate_stockupdater() {
  * This action is documented in includes/class-stockupdater-deactivator.php
  */
 function deactivate_stockupdater() {
-	
+	wp_clear_scheduled_hook('stockupdater_update_products');
 }
 
 register_activation_hook( __FILE__, 'activate_stockupdater' );
@@ -62,6 +62,14 @@ register_deactivation_hook( __FILE__, 'deactivate_stockupdater' );
 require plugin_dir_path( __FILE__ ) . 'includes/class-xmlsimpler.php';
 require plugin_dir_path( __FILE__ ) . 'includes/class-stockupdater.php';
 
+if(isset($_POST['save_form'])){
+	if(isset($_POST['feed_one_prefix'])){
+		update_option( 'feed_one_prefix', $_POST['feed_one_prefix'] );
+	}
+	if(isset($_POST['feed_two_prefix'])){
+		update_option( 'feed_two_prefix', $_POST['feed_two_prefix'] );
+	}
+}
 /**
  * Begins execution of the plugin.
  *
